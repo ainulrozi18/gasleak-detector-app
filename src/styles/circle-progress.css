@@ -1,0 +1,87 @@
+.skill {
+  width: 250px; /* Sesuaikan dengan ukuran outer */
+  height: 250px; /* Sesuaikan dengan ukuran outer */
+  position: relative;
+  margin: auto;
+  margin-block: 35px;
+}
+
+#outer {
+  height: 250px; /* Ukuran baru */
+  width: 250px; /* Ukuran baru */
+  padding: 20px; /* Sesuaikan padding jika diperlukan */
+  border-radius: 50%;
+  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, .15), 
+              -6px -6px 10px -1px rgba(255, 255, 255, .7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner {
+  height: 160px; /* Ukuran baru */
+  width: 160px; /* Ukuran baru */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, .2),
+              inset -4px -4px 6px -1px rgba(255, 255, 255, .7),
+              -0.5px -0.5px 0px rgba(255, 255, 255, 1), 
+              0.5px 0.5px 0px rgba(0, 0, 0, .15),
+              0px 12px 10px -10px rgba(0, 0, 0, .05); */
+  border: 4px solid black;
+  z-index: 999;
+  background-color: #fbfbfb;
+}
+
+#value {
+  border-radius: 50%;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fbfbfb;
+  height: 148px; /* Ukuran baru */
+  width: 148px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#value #gasValue {
+  color: black;
+  font-size: 3.3rem;
+  margin-bottom: -10px;
+}
+
+circle {
+  fill: none;
+  stroke: url(#GradientColor);
+  stroke-width: 48px;
+  stroke-dasharray: 628;
+  stroke-dashoffset: 628; 
+}
+
+svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.safe-gas {
+  background-color: rgb(38, 198, 38);
+}
+
+.careful-gas {
+  background-color: rgb(226, 242, 78);
+}
+
+.alert-gas {
+  background-color: rgb(255, 158, 61);
+}
+
+.danger-gas { 
+  background-color: rgb(252, 63, 63);
+}
+

@@ -1,0 +1,19 @@
+/* Chart */
+
+  /* gas chart */
+  .chart__gas {
+    margin: auto;
+    margin-top: 40px;
+    width: 90%;
+    border: 3px solid black;
+    border-radius: 3px;
+  }
+
+  /* flame chart */
+  .chart__flame {
+    margin: auto;
+    margin-top: 40px;
+    width: 90%;
+    border: 3px solid black;
+    border-radius: 3px;
+  }
