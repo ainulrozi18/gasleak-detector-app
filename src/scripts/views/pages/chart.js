@@ -4,7 +4,6 @@ import { getMQTTData } from "../../globals/mqtt-client.js";
 const ChartJS = {
     async render() {
         return `
-        <connected-status status="" buzzer-text="Buzzer non-aktif"></connected-status>
         <div class="chart">
             <div class="chart__gas">
                 <canvas id="myChart__gas"></canvas>

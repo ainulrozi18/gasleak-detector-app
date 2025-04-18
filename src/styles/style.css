@@ -10,9 +10,8 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
   }
-   
-   
   /*
     AppBar
   */
@@ -125,16 +124,25 @@
     gap: 13px;
   }
 
-  .connectedStatus .connectedStatus__buzzer img {
+  .connectedStatus__buzzer div {
     background-color: yellow;
-    padding: 3px;
     border-radius: 50%;
+    padding: 3px;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s ease;
+  }
+  
+  .connectedStatus .connectedStatus__buzzer div img {
+    margin: auto;
+    width: 25px;
   }
 
   /* Gas Value */
   /*  */
-  
-
   .progress {
     width: 150px;
     height: 150px;
@@ -306,20 +314,20 @@
   /* Animasi untuk nilai sensor > 800 */
   @keyframes blinkOrange {
     0%, 100% {
-      border-color: orange;
+      background-color: orange;
     }
     50% {
-      border-color: grey;
+      background-color: grey;
     }
   }
 
   /* Animasi untuk nilai sensor > 1000 */
   @keyframes blinkRed {
     0%, 100% {
-      border-color: red;
+      background-color: red;
     }
     50% {
-      border-color: grey;
+      background-color: grey;
     }
   }
   @keyframes blinkBorderGreen {
@@ -358,5 +366,24 @@
     }
     50% {
       border-color: grey;
+    }
+  }
+
+  @keyframes buzzerRing {
+    0%, 100% {
+      transform: rotate(-15deg) scale(1.1);
+    }
+    
+    50% {
+      transform: rotate(15deg) scale(1);
+    }
+  }
+
+  @keyframes blinkBackgroundBuzzerRing {
+    0%, 100% {
+      background-color: yellow;
+    }
+    50% {
+      background-color: transparent;
     }
   }

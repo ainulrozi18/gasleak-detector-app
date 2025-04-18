@@ -17,7 +17,10 @@ self.addEventListener('push', event => {
   const data = event.data.json();
   self.registration.showNotification(data.title, {
     body: data.message,
-    vibrate: [200, 100, 200]
+    vibrate: [200, 100, 200],
+    data: {
+      url: '/'  // bisa redirect ketika klik
+    }
     // icon: '/icons/icon-192.png',
     // badge: '/icons/icon-192.png'
   });

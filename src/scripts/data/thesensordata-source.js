@@ -1,5 +1,6 @@
 import { CONFIG } from "../globals/config";
 import { getMQTTData } from "../globals/mqtt-client";
+import { showApiAlert, showGasAlert } from "../utils/alertManager";
 import Home from "../views/pages/home";
 
 // Simpan status notifikasi untuk setiap rentang
@@ -22,9 +23,10 @@ function resetNotifFlags(rangeToKeep) {
 }
 
 let lastGasRange = null;
+let title;
 
 const checkGasClasification = (data, colorCircleProgress, stops) => {
-  let gasClasification, colorGasClassification, stopClassificationColor;
+  let gasClasification, colorGasClassification, stopClassificationColor, messageOfGas;
   const changeColorGasClasification = (classification) => {
     return colorCircleProgress.forEach((clrCircleProg) => {
       clrCircleProg.classList = "";
@@ -44,45 +46,52 @@ const checkGasClasification = (data, colorCircleProgress, stops) => {
     case data < 610:
       gasClasification = "Aman";
       colorGasClassification = "safe-gas";
+      stopClassificationColor = "green"
       currentRange = "safe";
       break;
 
     case data >= 610 && data < 800:
       gasClasification = "Hati-hati";
       colorGasClassification = "careful-gas";
+      stopClassificationColor = "yellow"
       currentRange = "careful";
+      messageOfGas = "Kadar gas melebihi 610 PPM, Segera cek untuk pencegahan dini"
+      title = `Terdeteksi Gas! (${gasClasification})`
 
       // Panggil notifikasi hanya jika rentang berbeda dari sebelumnya
       if (lastGasRange !== currentRange) {
-        triggerNotif(
-          "Terdeteksi Gas! Hati-hati - Kadar gas melebihi 610 PPM, Segera cek untuk pencegahan dini!"
-        );
+        triggerNotif(title, messageOfGas);
+        showGasAlert(messageOfGas)
       }
       break;
 
     case data >= 800 && data < 1000:
       gasClasification = "Waspada";
       colorGasClassification = "alert-gas";
+      stopClassificationColor = "orange"
       currentRange = "alert";
+      messageOfGas = "Kadar gas melebihi 800 PPM, Segera cek dan keluarkan gas LPG kamu ke ruangan terbuka!"
+      title = `Terdeteksi Gas! (${gasClasification})`
 
       // Panggil notifikasi hanya jika rentang berbeda dari sebelumnya
       if (lastGasRange !== currentRange) {
-        triggerNotif(
-          "Terdeteksi Gas! Waspada - Kadar gas melebihi 800 PPM, Segera cek dan keluarkan gas LPG kamu ke ruangan terbuka!"
-        );
+        triggerNotif(title, messageOfGas);
+        showGasAlert(messageOfGas)
       }
       break;
 
     case data >= 1000:
       gasClasification = "Bahaya";
       colorGasClassification = "danger-gas";
+      stopClassificationColor = "red"
       currentRange = "danger";
+      messageOfGas = "Kadar gas melebihi 1000 PPM, Segera keluarkan gas LPG kamu ke ruangan terbuka, jangan menyalakan api dan matikan listrik!"
+      title = `Terdeteksi Gas! (${gasClasification})`
 
       // Panggil notifikasi hanya jika rentang berbeda dari sebelumnya
       if (lastGasRange !== currentRange) {
-        triggerNotif(
-          "Terdeteksi Gas! Bahaya - Kadar gas melebihi 1000 PPM, Segera keluarkan gas LPG kamu ke ruangan terbuka, jangan menyalakan api dan matikan listrik!"
-        );
+        triggerNotif(title, messageOfGas);
+        showGasAlert(messageOfGas)
       }
       break;
 
@@ -99,6 +108,26 @@ const checkGasClasification = (data, colorCircleProgress, stops) => {
 
   return gasClasification;
 };
+
+const updateBuzzerStatus = (data) => {
+  const buzzerStatusElement = document.querySelector('connected-status');
+  let buzzerStatus;
+  if(buzzerStatusElement) {
+    const buzzerImageELement = document.querySelector('.buzzer-image')
+    const backgroundBuzzerRing = document.querySelector('.connectedStatus__buzzer div')
+    if(data >= 610) {
+      buzzerStatus = "aktif"
+      buzzerImageELement.style.animation = "buzzerRing .25s ease-in-out infinite";
+      backgroundBuzzerRing.style.animation = "blinkBackgroundBuzzerRing .25s ease-in-out infinite";
+    } 
+    else {
+      buzzerStatus = "non-aktif"
+      buzzerImageELement.style.animation = "none"
+      backgroundBuzzerRing.style.animation = "none";
+    } 
+    buzzerStatusElement.setAttribute('buzzer-text', `Buzzer ${buzzerStatus}` );
+  }
+}
 
 export const catchMessageGasData = (
   gasClasification,
@@ -131,8 +160,9 @@ export const catchMessageGasData = (
         gasLPGValue.style.color = "#fff";
       }
       updateCircleProgress(data);
-      Home.updateGasStatusStyle(data);
+      Home.updateGasStatus(data);
       const checkStatusGas = data >= 610 ? "Terdeteksi" : "Aman";
+      updateBuzzerStatus(data)
 
       gasStatus.innerHTML = checkStatusGas;
       gasClasification.innerHTML = checkGasClasification(
@@ -162,8 +192,10 @@ export const catchMessageFlameData = (
         lineProgressFlameLayer.classList.add("danger-flame-layer");
         lineProgressFlame.classList.remove("safe-flame");
         lineProgressFlameLayer.classList.remove("safe-flame-layer");
+        title = `Terdeteksi Api!`;
         if (!notifTriggered.dangerFlame) {
-          triggerNotif("Terdeteksi Api! Segera cek gas LPG kamu!");
+          triggerNotif(title, "Terdeteksi Api! Segera cek gas LPG kamu!");
+          showApiAlert()
           notifTriggered.danger = true;
         }
         resetNotifFlags("careful"); // Reset notif rentang lain
@@ -179,10 +211,20 @@ export const catchMessageFlameData = (
   });
 };
 
-function triggerNotif(message) {
-  fetch(`${CONFIG.BACKEND_URL}/trigger-notification`, {
-    method: "POST",
-    body: JSON.stringify({ title: "Peringatan", message }),
-    headers: { "Content-Type": "application/json" },
-  });
+async function triggerNotif(title, message) {
+  try {
+    const response = await fetch(`${CONFIG.BACKEND_URL}/trigger-notification`, {
+      method: "POST",
+      body: JSON.stringify({ title, message }),
+      headers: { "Content-Type": "application/json" },
+    });
+  
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+  
+    console.log("Notification triggered successfully:", await response.json());
+  } catch (error) {
+    console.error("Error triggering notification:", error);
+  }
 }

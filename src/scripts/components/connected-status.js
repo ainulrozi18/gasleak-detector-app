@@ -13,7 +13,7 @@ class ConnectedStatus extends HTMLElement {
         this.querySelector('#connectStatus').textContent = newValue;
       }
       if (name === 'buzzer-text') {
-        this.querySelector('.connectedStatus__buzzer p').textContent = newValue;
+        this.querySelector('#buzzerStatus').textContent = newValue;
       }
     }
   
@@ -22,11 +22,13 @@ class ConnectedStatus extends HTMLElement {
         <div class="connectedStatus">
           <div class="connectedStatus__info">
             <img src="./wifi.png" alt="WiFi Icon" width="30">
-            <h4 id="connectStatus">Menyambungkan</h4>
+            <h4 id="connectStatus"></h4>
           </div>
           <div class="connectedStatus__buzzer">
-            <img src="./notification.png" alt="Notification Icon" width="30">
-            <p>Buzzer aktif</p>
+            <div>
+              <img class="buzzer-image" src="./notification.png" alt="Buzzer Icon" width="30">
+            </div>
+            <h4 id="buzzerStatus"></h4>
           </div>
         </div>
       `;

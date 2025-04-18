@@ -7,5 +7,5 @@ export const CONFIG = {
   TOPIC_GAS: 'iot/gas',
   TOPIC_FLAME: 'iot/flame',
   VAPID_PUBLIC_KEY: 'BO_sIqb9DQyz5eYcmnUlpMwL6RqN3Rpwhads94qKat2pbwvv7_eQ4j_cdLzbdXV4JBbssu_LpsFd_OjPfBD5ANA',
-  BACKEND_URL: 'http://localhost:3000'
+  BACKEND_URL: 'https://gasleak-backend-server-production.up.railway.app'
 };

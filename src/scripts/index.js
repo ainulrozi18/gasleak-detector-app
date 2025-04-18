@@ -6,7 +6,8 @@ import '../styles/about.css';
 import '../styles/chart.css';
 import './components/connected-status'
 import App from './views/app';
-import { registerServiceWorker } from './utils';
+import { showConnectionStatusAlert } from './utils/alertManager';
+import { updateStatus } from './globals/mqtt-client';
 
 const app = new App({
   content: document.querySelector('#mainContent'),
@@ -17,6 +18,19 @@ window.addEventListener('hashchange', () => {
 });
 
 window.addEventListener('load', () => {
-  registerServiceWorker()
+  updateConnectionStatus();
   app.renderPage();
 });
+
+function updateConnectionStatus() {
+  if(navigator.onLine) {
+    showConnectionStatusAlert("Terhubung")
+    updateStatus("Terhubung")
+  } else {
+    showConnectionStatusAlert("Koneksi terputus") 
+    updateStatus("Terputus")
+  }
+}
+// Menambahkan event listener untuk mendeteksi perubahan status koneksi secara real-time
+window.addEventListener('online', updateConnectionStatus);
+window.addEventListener('offline', updateConnectionStatus);
