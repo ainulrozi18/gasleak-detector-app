@@ -21,12 +21,12 @@ class ConnectedStatus extends HTMLElement {
       this.innerHTML = `
         <div class="connectedStatus">
           <div class="connectedStatus__info">
-            <img src="./wifi.png" alt="WiFi Icon" width="30">
+            <img src="./images/wifi.png" alt="WiFi Icon" width="30">
             <h4 id="connectStatus"></h4>
           </div>
           <div class="connectedStatus__buzzer">
             <div>
-              <img class="buzzer-image" src="./notification.png" alt="Buzzer Icon" width="30">
+              <img class="buzzer-image" src="./images/notification.png" alt="Buzzer Icon" width="30">
             </div>
             <h4 id="buzzerStatus"></h4>
           </div>

@@ -24,10 +24,10 @@ window.addEventListener('load', () => {
 
 function updateConnectionStatus() {
   if(navigator.onLine) {
-    showConnectionStatusAlert("Terhubung")
+    showConnectionStatusAlert("Koneksi internet terhubung")
     updateStatus("Terhubung")
   } else {
-    showConnectionStatusAlert("Koneksi terputus") 
+    showConnectionStatusAlert("Koneksi internet terputus") 
     updateStatus("Terputus")
   }
 }

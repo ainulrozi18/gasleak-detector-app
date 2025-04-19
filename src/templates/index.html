@@ -3,20 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Free movie catalogue for you">
-  <link rel="icon" href="./favicon.png">
+  <meta name="description" content="FireGas Detector - Aplikasi Aplikasi IoT Pendeteksi Kebocoran Gas LPG dan Kebakaran">
+  <link rel="icon" href="./icons/favicon.png">
+  <link rel="apple-touch-icon" href="./icons/icon-192x192.png">
+  <link rel="manifest" href="./app.webmanifest">
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <title>FireGas Detector</title>
 </head>
 <body>
   <header class="app-bar">
     <div class="app-bar__brand">
-      <img src="./favicon.png" alt="Logo">
+      <img src="./icons/favicon.png" alt="Logo">
       <h1>FIREGAS DETECTOR</h1>
     </div>
-    <!-- <div class="app-bar__menu">
-      <button id="hamburgerButton">☰</button>
-    </div> -->
   </header>
   <main>
     <connected-status status="" buzzer-text="Buzzer non-aktif"></connected-status>
@@ -29,17 +31,16 @@
     <div class="navbar-container">
       <ul class="nav-list">
         <li class="nav-item">
-          <a href="#/home"><img src="./home.png" alt=""></a>
+          <a href="#/home"><img src="./images/home.png" alt=""></a>
         </li>
         <li class="nav-item">
-          <a href="#/chart"><img src="./chart.png" alt=""></a>
+          <a href="#/chart"><img src="./images/chart.png" alt=""></a>
         </li>
         <li class="nav-item">
-          <a href="#/about"><img src="./about.png" alt=""></a>
+          <a href="#/about"><img src="./images/about.png" alt=""></a>
         </li>
       </ul>
     </div>
   </nav>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

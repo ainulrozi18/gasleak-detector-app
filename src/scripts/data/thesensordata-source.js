@@ -106,7 +106,7 @@ const checkGasClasification = (data, colorCircleProgress, stops) => {
   // Simpan rentang saat ini untuk perbandingan berikutnya
   lastGasRange = currentRange;
 
-  return gasClasification;
+  // return gasClasification;
 };
 
 const updateBuzzerStatus = (data) => {
@@ -130,7 +130,7 @@ const updateBuzzerStatus = (data) => {
 }
 
 export const catchMessageGasData = (
-  gasClasification,
+  valueSensor,
   gasStatus,
   gasValue,
   circle,
@@ -165,7 +165,8 @@ export const catchMessageGasData = (
       updateBuzzerStatus(data)
 
       gasStatus.innerHTML = checkStatusGas;
-      gasClasification.innerHTML = checkGasClasification(
+      valueSensor.innerHTML = data;
+      checkGasClasification(
         data,
         colorCircleProgress,
         stops

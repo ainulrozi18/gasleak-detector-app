@@ -18,7 +18,7 @@ const ChartJS = {
     async afterRender() {
         this.initCharts();
         this.subscribeToMQTT();
-    },
+    },    
 
     initCharts() {
         const ctxGas = document.getElementById("myChart__gas");
@@ -34,16 +34,45 @@ const ChartJS = {
             data: {
                 labels: this.gasData.labels,
                 datasets: [{
-                    label: "Gas PPM",
+                    label: "Grafik kadar gas LPG",
                     data: this.gasData.values,
                     backgroundColor: "rgba(75, 192, 192, 0.2)",
                     borderColor: "rgba(75, 192, 192, 1)",
-                    borderWidth: 1,
+                    borderWidth: 3,
                 }],
             },
             options: {
                 responsive: true,
-                scales: { y: { beginAtZero: true } },
+                scales: {
+                    x: {
+                        ticks: { // Atur ukuran font untuk label di sumbu X
+                            font: {
+                                size: 9, // Ukuran font
+                                weight: "bold", // Ketebalan font
+                            },
+                        },
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { // Atur ukuran font untuk label di sumbu Y
+                            font: {
+                                size: 10,
+                                weight: "bold",
+                            },
+                        },
+                    },
+                },
+                plugins: {
+                    legend: {
+                        align: "center", // Menempatkan label legenda di tengah
+                        labels: {
+                            font: {
+                                size: 11,
+                                weight: "bold",
+                            },
+                        },
+                    },
+                },
             },
         });
 
@@ -53,24 +82,59 @@ const ChartJS = {
             data: {
                 labels: this.flameData.labels,
                 datasets: [{
-                    label: "Deteksi Api",
+                    label: "Grafik deteksi kebakaran",
                     data: this.flameData.values,
                     backgroundColor: "rgba(255, 99, 132, 0.2)",
                     borderColor: "rgba(255, 99, 132, 1)",
-                    borderWidth: 1,
+                    borderWidth: 3,
                 }],
             },
             options: {
                 responsive: true,
-                scales: { y: { beginAtZero: true, max: 1 } },
+                scales: {
+                    x: {
+                        ticks: { // Atur ukuran font untuk label di sumbu X
+                            font: {
+                                size: 9, // Ukuran font
+                                weight: "bold", // Ketebalan font
+                            },
+                        },
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 1, // Memberikan ruang tambahan di atas nilai maksimum
+                        ticks: { // Atur ukuran font untuk label di sumbu Y
+                            font: {
+                                size: 10,
+                                weight: "bold",
+                            },
+                            callback: function(value) {
+                                if(value === 1) return Math.floor(value);
+                                else return value;
+                            },
+                        },
+                    },
+                },
+                plugins: {
+                    legend: {
+                        align: "center", // Menempatkan label legenda di tengah
+                        labels: {
+                            font: {
+                                size: 11,
+                                weight: "bold",
+                            },
+                        },
+                    },
+                },
             },
         });
     },
 
     subscribeToMQTT() {
         getMQTTData((topic, data) => {
-            const time = new Date().toLocaleTimeString();
-
+            // Gunakan format waktu 24 jam
+            const time = new Date().toLocaleTimeString("id-ID", { hourCycle: "h23" });
+    
             if (topic === "iot/gas") {
                 this.updateChart(this.gasChart, this.gasData, time, parseInt(data));
             } else if (topic === "iot/flame") {
@@ -80,7 +144,7 @@ const ChartJS = {
     },
 
     updateChart(chart, dataset, label, value) {
-        if (dataset.labels.length >= 10) {
+        if (dataset.labels.length >= 5) {
             dataset.labels.shift();
             dataset.values.shift();
         }
@@ -90,6 +154,7 @@ const ChartJS = {
 
         chart.update();
     },
+  
 };
 
 export default ChartJS;
