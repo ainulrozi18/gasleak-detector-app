@@ -42,10 +42,44 @@ export function updateStatus(status) {
 }
 
 // Fungsi untuk menangkap pesan dan mengembalikan data
-export function getMQTTData(callback) {
-    API_ENDPOINT.CLIENT.on("message", function (topic, message) {
-        let data = message.toString();
-        // Kirim data ke callback
-        if (callback) callback(topic, data);
+// let currentCallback = null;
+
+// export function getMQTTData(callback) {
+//   // Hapus listener sebelumnya jika ada
+//   if (currentCallback) {
+//     API_ENDPOINT.CLIENT.removeListener("message", currentCallback);
+//   }
+  
+//   // Simpan callback baru
+//   currentCallback = function(topic, message) {
+//     let data = message.toString();
+//     if (callback) callback(topic, data);
+//   };
+  
+//   // Daftarkan callback baru
+//   API_ENDPOINT.CLIENT.on("message", currentCallback);
+// }
+
+// mqtt-client.js
+let callbacks = {};
+let isInitialized = false;
+
+export function getMQTTData(topic, callback) {
+  // Daftarkan callback
+  callbacks[topic] = callback;
+  
+  // Inisialisasi handler sekali saja
+  if (!isInitialized) {
+    API_ENDPOINT.CLIENT.on("message", (topic, message) => {
+      if (callbacks[topic]) {
+        callbacks[topic](topic, message.toString());
+      }
     });
+    isInitialized = true;
+  }
+}
+
+// Tambahkan fungsi untuk menghapus callback
+export function removeMQTTCallback(topic) {
+  delete callbacks[topic];
 }

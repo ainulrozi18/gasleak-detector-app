@@ -1,7 +1,4 @@
-import {
-  catchMessageFlameData,
-  catchMessageGasData,
-} from "../../data/thesensordata-source";
+import { setupGasDataHandlers, setupFlameDataHandlers, cleanupHandlers } from "../../data/thesensordata-source";
 
 const Home = {
   async render() {
@@ -93,24 +90,54 @@ const Home = {
       lineProgressLayer: document.querySelector(".line-progress-flame__layer"),
     };
 
-    // Initialize gas and flame monitoring
-    function initializeMonitoring() {
-      catchMessageFlameData(
-        FLAME_ELEMENTS.values,
-        FLAME_ELEMENTS.status,
-        FLAME_ELEMENTS.lineProgress,
-        FLAME_ELEMENTS.lineProgressLayer
-      );
+let monitoringInitialized = false;
 
-      catchMessageGasData(
-        GAS_ELEMENTS.valueSensor,
-        GAS_ELEMENTS.status,
-        GAS_ELEMENTS.value,
-        GAS_ELEMENTS.circle,
-        [GAS_ELEMENTS.colors.outer, GAS_ELEMENTS.colors.value],
-        [GAS_ELEMENTS.stops.stop1, GAS_ELEMENTS.stops.stop2]
-      );
+function initializeMonitoring() {
+  // Hanya inisialisasi sekali
+  if (monitoringInitialized) {
+    console.log("Monitoring already initialized");
+    return;
+  }
+
+  // Bersihkan handler sebelumnya (jika ada)
+  try {
+    if (typeof cleanupHandlers === 'function') {
+      cleanupHandlers();
     }
+  } catch (error) {
+    console.error("Cleanup error:", error);
+  }
+
+  // Setup handler baru
+  try {
+    setupGasDataHandlers({
+      valueSensor: GAS_ELEMENTS.valueSensor,
+      gasStatus: GAS_ELEMENTS.status,
+      gasValue: GAS_ELEMENTS.value,
+      circle: GAS_ELEMENTS.circle,
+      colorCircleProgress: [GAS_ELEMENTS.colors.outer, GAS_ELEMENTS.colors.value],
+      stops: [GAS_ELEMENTS.stops.stop1, GAS_ELEMENTS.stops.stop2]
+    });
+
+    setupFlameDataHandlers({
+      flameValue: FLAME_ELEMENTS.values,
+      flameStatus: FLAME_ELEMENTS.status,
+      lineProgressFlame: FLAME_ELEMENTS.lineProgress,
+      lineProgressFlameLayer: FLAME_ELEMENTS.lineProgressLayer
+    });
+
+    monitoringInitialized = true;
+    console.log("Monitoring initialized successfully");
+  } catch (error) {
+    console.error("Initialization failed:", error);
+  }
+}
+
+// Panggil cleanup saat komponen unmount (jika menggunakan SPA)
+// function cleanup() {
+//   cleanupHandlers();
+//   monitoringInitialized = false;
+// }
 
     // Update gas status styles based on sensor value
     function updateGasStatusStyle(sensorValueOfGas) {

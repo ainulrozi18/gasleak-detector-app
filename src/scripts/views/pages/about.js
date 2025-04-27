@@ -2,7 +2,7 @@ const About = {
   async render(){
     return `
     <div class="about">
-        <h1>Tentang Aplikasi</h1>
+        <h1 class="about__heading">Tentang Aplikasi</h1>
         <div class="cards">
             <div class="about__card">
                 <div class="about__card-heading">

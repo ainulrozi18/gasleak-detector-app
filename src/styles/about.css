@@ -1,5 +1,4 @@
-* About */
-.about h1 {
+.about .about__heading {
     text-align: center;
     text-decoration: underline;
     font-size: 1.8rem;

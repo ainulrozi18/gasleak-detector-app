@@ -16,11 +16,7 @@ class App {
     await page.afterRender();
     connectMQTT();
 
-    if ("serviceWorker" in navigator && "PushManager" in window) {
-      navigator.serviceWorker.register("/sw.bundle.js").then(() => {
-        registerPush();
-      });
-    }
+   registerPush();
   }
 
   _manageConnectedStatus(url) {

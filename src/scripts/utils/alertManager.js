@@ -1,13 +1,22 @@
-export function showGasAlert(message) {
-    Swal.fire({
-      title: 'Peringatan Gas!',
-      text: `Terdeteksi gas - ${message}`,
-      icon: 'warning',
-      confirmButtonText: 'OK'
-    });
+function sweetAlertCheck() {
+  if (typeof Swal === 'undefined') {
+    console.error('SweetAlert2 is not loaded!');
+    return;
   }
-  
-  export function showApiAlert() {
+}
+
+export function showGasAlert(message) {
+  sweetAlertCheck()
+  Swal.fire({
+    title: 'Peringatan Gas!',
+    text: `Terdeteksi gas - ${message}`,
+    icon: 'warning',
+    confirmButtonText: 'OK'
+  });
+}
+
+export function showApiAlert() {
+    sweetAlertCheck()
     Swal.fire({
       title: 'Peringatan Api!',
       text: 'Terdeteksi api! Segera cek gas LPG kamu!',
@@ -17,6 +26,7 @@ export function showGasAlert(message) {
   }
 
   export function showConnectionStatusAlert(title) {
+    sweetAlertCheck()
     Swal.fire({
       position: "bottom",
       title: `${title}`,

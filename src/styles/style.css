@@ -69,14 +69,11 @@
     border-top-right-radius: 20px;
   }
 
-  nav .navbar-container .nav-list .nav-item {
+  nav .navbar-container .nav-list .nav-item img {
+    width: 40px;
+    height: 40px;
   }
 
-  nav .navbar-container .nav-list .nav-item img {
-    width: 45px;
-    height: 45px;
-  }
-   
   /*
     Main Content
   */
@@ -291,7 +288,6 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   }
 
   .statusCategory .statusCategory__circle .statusValue .statusValue__text {
