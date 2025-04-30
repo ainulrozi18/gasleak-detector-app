@@ -1,3 +1,7 @@
+.about {
+    padding-block-end: 40px;
+}
+
 .about .about__heading {
     text-align: center;
     text-decoration: underline;
@@ -17,7 +21,7 @@
     border: 4px solid black;
     border-radius: 15px;
     margin-block: 25px;
-    padding: 20px 15px;
+    padding: 10px 5px;
     cursor: pointer;
 }
 
@@ -35,19 +39,20 @@
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease-out;
+    padding-inline: 20px;
+}
+
+.about .cards .about__card .about__card-content ul {
+    
 }
 
 .about .cards .about__card .about__card-content ul li {
+    list-style-type: circle;
     margin-block: 5px;
-    background-color: blue;
-}
-
-.about .cards .about__card .about__card-content ul span{
-    background-color: aqua;
 }
 
 .about .cards .about__card .about__card-content.show {
-    max-height: 500px;
+    max-height: 4000px;
     transition: max-height 0.5s ease-in;
 }
 
@@ -55,6 +60,163 @@
     flex-direction: row;
 }
 
-.about .cards .about__card p {
+.about .cards .about__card p, .content-item ul li ,ul li span, ol li {
+    font-size: .85rem;
+    margin-top: 5px;
+    line-height: 1.4;
+    text-justify: inter-word;
+}
+
+/* Add these styles to your existing CSS */
+
+/* Technology Section */
+.content-section {
+    margin-block: 20px;
+}
+
+.content-section .content-item {
+    padding: 15px;
+    padding-left: 23px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.tech-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.tech-item:hover, .content-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.tech-icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.tech-item h6 {
+    margin: 0 0 5px 0;
+    color: #2c3e50;
+    font-size: 1rem;
+}
+
+.tech-item p, .architecture p {
+    margin: 0;
+    font-size: 0.85rem;
+    text-align: center !important;
+    color: #7f8c8d;
+    line-height: 1.4;
+}
+
+.architecture {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.architecture-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+}
+
+/* Developer Section */
+.developer-profile {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.developer-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #3498db;
+}
+
+.developer-info h5 {
+    margin: 0 0 5px 0;
     font-size: 1.3rem;
+    color: #2c3e50;
+}
+
+.developer-title {
+    margin: 0 0 10px 0;
+    color: #7f8c8d;
+    font-style: italic;
+    font-size: 1.3rem !important;
+    text-align: center !important;
+}
+
+.developer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #3498db;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.contact-link:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+.contact-link img {
+    width: 16px;
+    height: 16px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .tech-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .developer-profile {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .developer-contact {
+        align-items: center;
+    }
+    
+    .tech-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
 }
