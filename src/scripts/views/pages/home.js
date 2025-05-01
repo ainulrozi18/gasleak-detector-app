@@ -133,12 +133,6 @@ function initializeMonitoring() {
   }
 }
 
-// Panggil cleanup saat komponen unmount (jika menggunakan SPA)
-// function cleanup() {
-//   cleanupHandlers();
-//   monitoringInitialized = false;
-// }
-
     // Update gas status styles based on sensor value
     function updateGasStatusStyle(sensorValueOfGas) {
       const STATUS_CATEGORIES = {

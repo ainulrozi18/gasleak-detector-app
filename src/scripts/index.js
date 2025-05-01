@@ -9,6 +9,14 @@ import App from './views/app';
 import { showConnectionStatusAlert } from './utils/alertManager';
 import { updateStatus } from './globals/mqtt-client';
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/scripts/sw.js')
+      .then(reg => console.log('✅ Service Worker registered', reg))
+      .catch(err => console.error('❌ Service Worker registration failed', err));
+  });
+}
+
 const app = new App({
   content: document.querySelector('#mainContent'),
 });

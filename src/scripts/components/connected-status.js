@@ -5,7 +5,7 @@ class ConnectedStatus extends HTMLElement {
     }
   
     static get observedAttributes() {
-      return ['status', 'buzzer-text']; // Daftarkan atribut yang akan diamati
+      return ['status', 'buzzer-text']; 
     }
   
     attributeChangedCallback(name, oldValue, newValue) {
