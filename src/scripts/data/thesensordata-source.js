@@ -103,7 +103,6 @@ function handleFlameData(data, elements) {
 
     sensorManager.updateMultipleValues(elements.flameValue, numericData);
     sensorManager.handleFlameData(numericData, elements);
-    console.log("sukses");
   } catch (error) {
     console.error("Flame data processing error:", error);
   }

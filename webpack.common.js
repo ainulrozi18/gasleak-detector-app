@@ -8,7 +8,9 @@ module.exports = {
     sw: path.resolve(__dirname, 'src/scripts/sw.js'),
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: (pathData) => {
+      return pathData.chunk.name === 'sw' ? '[name].js' : '[name].bundle.js';
+    },
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },

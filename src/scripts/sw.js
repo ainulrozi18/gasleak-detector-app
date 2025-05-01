@@ -57,13 +57,13 @@ self.addEventListener('fetch', event => {
 // Push Notification
 self.addEventListener('push', event => {
   const data = event.data?.json() || {};
-  const title = data.title || 'Notifikasi';
+  const title = data.title || "Notifikasi";
   const options = {
     body: data.message || 'Ada pemberitahuan baru',
     icon: '/icons/icon-192x192.png',
     badge: '/icons/logo.png',
     vibrate: [200, 100, 200],
-    data: { url: data.url || '/' }
+    data: { url: '/' }
   };
 
   event.waitUntil(self.registration.showNotification(title, options));
