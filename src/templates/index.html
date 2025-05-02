@@ -1,47 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="FireGas Detector - Aplikasi Aplikasi IoT Pendeteksi Kebocoran Gas LPG dan Kebakaran">
-  <link rel="icon" href="./icons/favicon.png">
-  <link rel="apple-touch-icon" href="./icons/icon-192x192.png">
-  <link rel="manifest" href="./manifest.json">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="FireGas Detector - Aplikasi Aplikasi IoT Pendeteksi Kebocoran Gas LPG dan Kebakaran"
+    />
+    <link rel="icon" href="./icons/favicon.png" />
+    <link rel="apple-touch-icon" href="./icons/icon-192x192.png" />
+    <link rel="manifest" href="./manifest.json" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
 
-  <title>FireGas Detector</title>
-</head>
-<body>
-  <header class="app-bar">
-    <div class="app-bar__brand">
-      <img src="./icons/favicon.png" width="50" height="50" alt="Logo">
-      <h1>FIREGAS DETECTOR</h1>
-    </div>
-  </header>
-  <main>
-    <connected-status status="" buzzer-text="Buzzer non-aktif"></connected-status>
-    <div id="mainContent"></div>
-  </main>
-  <footer>
+    <title>FireGas Detector</title>
+  </head>
+  <body>
+    <header class="app-bar">
+      <div class="app-bar__brand">
+        <img src="./icons/favicon.png" width="50" height="50" alt="Logo" />
+        <h1>FIREGAS DETECTOR</h1>
+      </div>
+    </header>
+    <main>
+      <connected-status
+        status=""
+        buzzer-text="Buzzer non-aktif"
+      ></connected-status>
+      <div id="mainContent"></div>
+      <nav>
+        <div class="navbar-container">
+          <ul class="nav-list" style="list-style-type: none">
+            <li class="nav-item">
+              <a href="#/home"><img src="./images/home.png" alt="home" /></a>
+            </li>
+            <li class="nav-item">
+              <a href="#/chart"><img src="./images/chart.png" alt="chart" /></a>
+            </li>
+            <li class="nav-item">
+              <a href="#/about"><img src="./images/about.png" alt="about" /></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </main>
 
-  </footer>
-  <nav>
-    <div class="navbar-container">
-      <ul class="nav-list" style="list-style-type: none;">
-        <li class="nav-item">
-          <a href="#/home"><img src="./images/home.png" alt="home"></a>
-        </li>
-        <li class="nav-item">
-          <a href="#/chart"><img src="./images/chart.png" alt="chart"></a>
-        </li>
-        <li class="nav-item">
-          <a href="#/about"><img src="./images/about.png" alt="about"></a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </body>
 </html>

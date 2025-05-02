@@ -11,7 +11,10 @@ export function showGasAlert(message) {
     title: 'Peringatan Gas!',
     text: `Terdeteksi gas - ${message}`,
     icon: 'warning',
-    confirmButtonText: 'OK'
+    confirmButtonText: 'OK',
+    customClass: {
+      icon: 'custom-icon'
+    }
   });
 }
 
@@ -21,7 +24,10 @@ export function showApiAlert() {
       title: 'Peringatan Api!',
       text: 'Terdeteksi api! Segera cek gas LPG kamu!',
       icon: 'warning',
-      confirmButtonText: 'OK'
+      confirmButtonText: 'OK',
+      customClass: {
+        icon: 'custom-icon'
+      }
     });
   }
 

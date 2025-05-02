@@ -15,8 +15,7 @@ class App {
     this._content.innerHTML = await page.render();
     await page.afterRender();
     connectMQTT();
-
-   registerPush();
+    registerPush();
   }
 
   _manageConnectedStatus(url) {
