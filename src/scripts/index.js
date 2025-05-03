@@ -8,6 +8,7 @@ import './components/connected-status'
 import App from './views/app';
 import { showConnectionStatusAlert } from './utils/alertManager';
 import { updateStatus } from './globals/mqtt-client';
+import { registerPush, setupPusshNotifications } from './utils/pushManager';
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -27,6 +28,8 @@ window.addEventListener('hashchange', () => {
 
 window.addEventListener('load', () => {
   updateConnectionStatus();
+  setupPusshNotifications()
+  registerPush()
   app.renderPage();
 });
 

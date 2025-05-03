@@ -22,6 +22,7 @@ export async function registerPush() {
     
     // Check if we already have a subscription
     const existingSubscription = await registration.pushManager.getSubscription();
+    console.log("existingSubscription" + existingSubscription)
     
     if (existingSubscription) {
       // Update the server with our existing subscription
@@ -29,7 +30,7 @@ export async function registerPush() {
       subscriptionActive = true;
       return;
     }
-
+  console.log("subscriptionActive = " + subscriptionActive)
     // Create a new subscription
     try {
       const subscription = await registration.pushManager.subscribe({
@@ -37,6 +38,7 @@ export async function registerPush() {
         applicationServerKey: urlBase64ToUint8Array(CONFIG.VAPID_PUBLIC_KEY),
       });
       
+      console.log(subscription);
       await sendSubscriptionToServer(subscription);
       subscriptionActive = true;
       console.log("Push notification subscription successful");
@@ -84,6 +86,7 @@ export async function unregisterPush() {
 // Helper function to send subscription to server
 async function sendSubscriptionToServer(subscription) {
   try {
+    console.log("Sending subscription to server:", subscription);
     const response = await fetch(`${CONFIG.BACKEND_URL}/subscribe`, {
       method: "POST",
       body: JSON.stringify(subscription),
@@ -96,6 +99,7 @@ async function sendSubscriptionToServer(subscription) {
       throw new Error(`Server responded with status: ${response.status}`);
     }
     
+    console.log("Server response:", await response.json());
     return await response.json();
   } catch (fetchError) {
     console.error("Error sending subscription to server:", fetchError);
@@ -121,7 +125,7 @@ export function getNotificationPermissionStatus() {
 }
 
 // Add this to your app initialization or user engagement point
-export async function setupPushNotifications() {
+export async function setupPusshNotifications() {
   // Check if notifications are supported
   if (!('Notification' in window)) {
     console.warn("This browser does not support notifications");
