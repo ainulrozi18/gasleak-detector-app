@@ -10,8 +10,9 @@ const urlsToCache = [
   '#/scripts/views/pages/chart.js',
   '#/scripts/components/connected-status.js',
   '#/manifest.json',
+  '#/icons/icon-72x72.png',
   '#/icons/icon-192x192.png',
-  '#/icons/icon-512x512.png'
+  '#/icons/icon-512x512.png',
 ];
 
 self.addEventListener('install', async event => {
@@ -79,7 +80,7 @@ self.addEventListener('push', event => {
   const options = {
     body: notificationData.message || 'Ada pemberitahuan baru',
     icon: '/icons/icon-192x192.png',
-    badge: '/icons/favicon.png',
+    badge: '/icons/icon-72x72.png',
     vibrate: [200, 100, 200, 100, 200],
     tag: 'firegas-notification', // Tambahkan tag untuk mengelompokkan notifikasi
     data: { 
