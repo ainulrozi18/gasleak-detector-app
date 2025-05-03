@@ -12,7 +12,6 @@ export function cleanupHandlers() {
     removeMQTTCallback("iot/flame");
     gasDataHandlerRegistered = false;
     flameDataHandlerRegistered = false;
-    console.log("All handlers cleaned up successfully");
   } catch (error) {
     console.error("Error cleaning up handlers:", error);
   }

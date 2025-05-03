@@ -8,12 +8,13 @@ import './components/connected-status'
 import App from './views/app';
 import { showConnectionStatusAlert } from './utils/alertManager';
 import { updateStatus } from './globals/mqtt-client';
-import { registerPush, setupPusshNotifications } from './utils/pushManager';
+import { setupPusshNotifications } from './utils/pushManager';
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => console.log('✅ Service Worker registered', reg))
+    setupPusshNotifications()
+    navigator.serviceWorker.register('/sw.js', { scope: '/' })
+      .then(reg => console.log('✅ Service Worker registered'))
       .catch(err => console.error('❌ Service Worker registration failed', err));
   });
 }
@@ -28,8 +29,6 @@ window.addEventListener('hashchange', () => {
 
 window.addEventListener('load', () => {
   updateConnectionStatus();
-  setupPusshNotifications()
-  registerPush()
   app.renderPage();
 });
 

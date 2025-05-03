@@ -127,7 +127,6 @@ function initializeMonitoring() {
     });
 
     monitoringInitialized = true;
-    console.log("Monitoring initialized successfully");
   } catch (error) {
     console.error("Initialization failed:", error);
   }
