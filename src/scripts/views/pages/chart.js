@@ -170,7 +170,7 @@ const ChartJS = {
     dataset.values.push(value);
     
     // Batasi jumlah data yang ditampilkan
-    if (dataset.labels.length > 15) {
+    if (dataset.labels.length > 5) {
       dataset.labels.shift();
       dataset.values.shift();
     }
