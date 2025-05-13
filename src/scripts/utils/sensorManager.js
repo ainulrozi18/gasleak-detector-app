@@ -59,7 +59,7 @@ export class SensorManager {
       colorClassification: "careful-gas",
       stopColor: "yellow",
       currentRange: "careful",
-      message: "Kadar gas melebihi 610 PPM, Segera cek untuk pencegahan dini",
+      message: "Kadar gas melebihi 610 PPM, Segera cek sumber gas untuk pencegahan dini!",
       title: `Terdeteksi Gas! (Hati-hati)`,
     };
   }
@@ -70,7 +70,7 @@ export class SensorManager {
       colorClassification: "alert-gas",
       stopColor: "orange",
       currentRange: "alert",
-      message: "Kadar gas melebihi 800 PPM, Segera cek dan keluarkan gas LPG kamu ke ruangan terbuka!",
+      message: "Kadar gas melebihi 800 PPM, Segera cek sumber gas, matikan api, dan buka ventilasi!",
       title: `Terdeteksi Gas! (Waspada)`
     };
   }

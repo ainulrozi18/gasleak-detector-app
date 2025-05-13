@@ -1,43 +1,82 @@
 function sweetAlertCheck() {
-  if (typeof Swal === 'undefined') {
-    console.error('SweetAlert2 is not loaded!');
+  if (typeof Swal === "undefined") {
+    console.error("SweetAlert2 is not loaded!");
     return;
   }
 }
 
+// export function showGasAlert(message) {
+//   sweetAlertCheck()
+//   Swal.fire({
+//     title: 'Peringatan Gas!',
+//     text: `Terdeteksi gas - ${message}`,
+//     icon: 'warning',
+//     confirmButtonText: 'OK',
+//     customClass: {
+//       icon: 'custom-icon'
+//     }
+//   });
+// }
+
 export function showGasAlert(message) {
-  sweetAlertCheck()
+  sweetAlertCheck();
+
+  let audio = new Audio("./audio/warning.mp3");
+  audio.play();
+
+  if ("vibrate" in navigator) {
+    navigator.vibrate([500, 200, 500]); // Getar selama 500ms, jeda 200ms, lalu 500ms lagi
+  }
+
   Swal.fire({
-    title: 'Peringatan Gas!',
+    title: "Peringatan Gas!",
     text: `Terdeteksi gas - ${message}`,
-    icon: 'warning',
-    confirmButtonText: 'OK',
+    icon: "warning",
+    confirmButtonText: "OK",
     customClass: {
-      icon: 'custom-icon'
-    }
+      icon: "custom-icon",
+    },
+  }).then(() => {
+    // Hentikan audio saat pengguna menekan "OK"
+    audio.pause();
+    audio.currentTime = 0; // Reset ke awal
+    navigator.vibrate(0);
   });
 }
 
 export function showApiAlert() {
-    sweetAlertCheck()
-    Swal.fire({
-      title: 'Peringatan Api!',
-      text: 'Terdeteksi api! Segera cek gas LPG kamu!',
-      icon: 'warning',
-      confirmButtonText: 'OK',
-      customClass: {
-        icon: 'custom-icon'
-      }
-    });
+  sweetAlertCheck();
+  let audio = new Audio("./audio/warning.mp3");
+  audio.play();
+
+  if ("vibrate" in navigator) {
+    navigator.vibrate([500, 200, 500]); // Getar selama 500ms, jeda 200ms, lalu 500ms lagi
   }
 
-  export function showConnectionStatusAlert(title) {
-    sweetAlertCheck()
-    Swal.fire({
-      position: "bottom",
-      title: `${title}`,
-      showConfirmButton: false,
-      timer: 1500
-    });
-  }
-  
+  Swal.fire({
+    title: "Peringatan Api!",
+    text: "Terdeteksi api! Segera cek gas LPG kamu!",
+    icon: "warning",
+    confirmButtonText: "OK",
+    customClass: {
+      icon: "custom-icon",
+    },
+  }).then(() => {
+    audio.pause();
+    audio.currentTime = 0; // Reset ke awal
+    navigator.vibrate(0);
+  });
+}
+
+export function showConnectionStatusAlert(title) {
+  sweetAlertCheck();
+  Swal.fire({
+    position: "bottom",
+    title: `${title}`,
+    showConfirmButton: false,
+    timer: 1500,
+    customClass: {
+      title: "custom-title",
+    },
+  });
+}

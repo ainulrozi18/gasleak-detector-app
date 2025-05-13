@@ -2,3 +2,6 @@
 .custom-icon * {
   overflow: hidden !important;
 }
+.custom-title {
+  font-size: 1.2rem;
+}

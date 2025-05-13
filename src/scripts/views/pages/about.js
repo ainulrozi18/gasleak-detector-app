@@ -34,9 +34,9 @@ const About = {
                         <h5>Cara Penanganan</h5>
                         <ul>
                             <li><span class="status-label aman">Aman</span>: Tidak diperlukan tindakan khusus</li>
-                            <li><span class="status-label hati-hati">Hati-hati</span>: Periksa sumber gas, buka ventilasi</li>
-                            <li><span class="status-label waspada">Waspada</span>: Matikan sumber api, evakuasi sementara</li>
-                            <li><span class="status-label bahaya">Bahaya</span>: Segera evakuasi, hubungi petugas</li>
+                            <li><span class="status-label hati-hati">Hati-hati</span>: Periksa sumber gas untuk pencegahan dini</li>
+                            <li><span class="status-label waspada">Waspada</span>: Periksa sumber gas, Matikan api, dan buka ventilasi ruangan</li>
+                            <li><span class="status-label bahaya">Bahaya</span>: Segera keluarkan gas LPG ke ruangan terbuka, jangan menyalakan api, matikan listrik, dan hubungi petugas!</li>
                         </ul>
                         </div>
                     </div>
