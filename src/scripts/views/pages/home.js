@@ -136,21 +136,21 @@ function initializeMonitoring() {
     function updateGasStatusStyle(sensorValueOfGas) {
       const STATUS_CATEGORIES = {
         safe: {
-          threshold: 610,
+          threshold: 200,
           borderColor: "green",
           backgroundColor: "green",
           borderAnimation: "blinkBorderGreen 1.5s ease-in-out infinite",
           backgroundAnimation: "blinkGreen 1.5s ease-in-out infinite",
         },
         careful: {
-          threshold: 800,
+          threshold: 500,
           borderColor: "yellow",
           backgroundColor: "yellow",
           borderAnimation: "blinkBorderYellow 1.2s ease-in-out infinite",
           backgroundAnimation: "blinkYellow 1.2s ease-in-out infinite",
         },
         alert: {
-          threshold: 1000,
+          threshold: 2000,
           borderColor: "orange",
           backgroundColor: "orange",
           borderAnimation: "blinkBorderOrange .8s ease-in-out infinite",

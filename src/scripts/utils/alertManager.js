@@ -5,23 +5,11 @@ function sweetAlertCheck() {
   }
 }
 
-// export function showGasAlert(message) {
-//   sweetAlertCheck()
-//   Swal.fire({
-//     title: 'Peringatan Gas!',
-//     text: `Terdeteksi gas - ${message}`,
-//     icon: 'warning',
-//     confirmButtonText: 'OK',
-//     customClass: {
-//       icon: 'custom-icon'
-//     }
-//   });
-// }
-
 export function showGasAlert(message) {
   sweetAlertCheck();
 
   let audio = new Audio("./audio/warning.mp3");
+  audio.loop = true;
   audio.play();
 
   if ("vibrate" in navigator) {
@@ -47,6 +35,7 @@ export function showGasAlert(message) {
 export function showApiAlert() {
   sweetAlertCheck();
   let audio = new Audio("./audio/warning.mp3");
+  audio.loop = true;
   audio.play();
 
   if ("vibrate" in navigator) {

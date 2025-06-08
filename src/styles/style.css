@@ -5,3 +5,8 @@
 .custom-title {
   font-size: 1.2rem;
 }
+
+main {
+  margin: auto;
+  max-width: 1200px;
+}

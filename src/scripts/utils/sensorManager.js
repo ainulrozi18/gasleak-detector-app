@@ -42,11 +42,11 @@ export class SensorManager {
       message: "",
     };
 
-    if (data >= 610 && data < 800) {
+    if (data >= 200 && data < 500) {
       classification = this.getCarefulClassification(data);
-    } else if (data >= 800 && data < 1000) {
+    } else if (data >= 500 && data < 2000) {
       classification = this.getAlertClassification(data);
-    } else if (data >= 1000) {
+    } else if (data >= 2000) {
       classification = this.getDangerClassification(data);
     }
 
@@ -59,7 +59,7 @@ export class SensorManager {
       colorClassification: "careful-gas",
       stopColor: "yellow",
       currentRange: "careful",
-      message: "Kadar gas melebihi 610 PPM, Segera cek sumber gas untuk pencegahan dini!",
+      message: "Kadar gas melebihi 200 PPM, Segera cek sumber gas untuk pencegahan dini!",
       title: `Terdeteksi Gas! (Hati-hati)`,
     };
   }
@@ -70,7 +70,7 @@ export class SensorManager {
       colorClassification: "alert-gas",
       stopColor: "orange",
       currentRange: "alert",
-      message: "Kadar gas melebihi 800 PPM, Segera cek sumber gas, matikan api, dan buka ventilasi!",
+      message: "Kadar gas melebihi 500 PPM, Segera cek sumber gas, matikan api, dan buka ventilasi!",
       title: `Terdeteksi Gas! (Waspada)`
     };
   }
@@ -81,7 +81,7 @@ export class SensorManager {
       colorClassification: "danger-gas",
       stopColor: "red",
       currentRange: "danger",
-      message: "Kadar gas melebihi 1000 PPM, Segera keluarkan gas LPG kamu ke ruangan terbuka, jangan menyalakan api dan matikan listrik!",
+      message: "Kadar gas melebihi 2000 PPM, Segera keluarkan gas LPG kamu ke ruangan terbuka, jangan menyalakan api dan matikan listrik!",
       title: `Terdeteksi Gas! (Bahaya)`
     };
   }
@@ -170,7 +170,7 @@ export class SensorManager {
     if (!buzzerElement || !buzzerImage || !buzzerRing) return;
 
     const isActive =
-      (topic === "iot/gas" && data >= 610) ||
+      (topic === "iot/gas" && data >= 200) ||
       (topic === "iot/flame" && data == 1);
 
     buzzerElement.setAttribute(

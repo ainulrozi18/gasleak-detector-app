@@ -21,10 +21,10 @@ const About = {
                         <div class="content-item">
                         <h5>Klasifikasi Status Gas LPG</h5>
                         <ul>
-                            <li><span class="status-label aman">Aman</span>: 0 - 609 PPM (Konsentrasi normal, tidak berbahaya)</li>
-                            <li><span class="status-label hati-hati">Hati-hati</span>: 610 PPM (Ambang batas awal kebocoran)</li>
-                            <li><span class="status-label waspada">Waspada</span>: 800 PPM (Konsentrasi berbahaya, risiko ledakan rendah)</li>
-                            <li><span class="status-label bahaya">Bahaya</span>: 1000++ PPM (Risiko ledakan tinggi, sangat berbahaya)</li>
+                            <li><span class="status-label aman">Aman</span>: Kurang dari 200 PPM (Konsentrasi normal, tidak berbahaya)</li>
+                            <li><span class="status-label hati-hati">Hati-hati</span>: 200 PPM (Ambang batas awal kebocoran)</li>
+                            <li><span class="status-label waspada">Waspada</span>: 500 PPM (Konsentrasi berbahaya, risiko ledakan rendah)</li>
+                            <li><span class="status-label bahaya">Bahaya</span>: Lebih dari 2000 PPM (Risiko ledakan tinggi, sangat berbahaya)</li>
                         </ul>
                         </div>
                     </div>
