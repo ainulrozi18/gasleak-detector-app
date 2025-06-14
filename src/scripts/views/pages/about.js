@@ -1,4 +1,10 @@
+import { CONFIG } from "../../globals/config";
+import { getMQTTData } from "../../globals/mqtt-client";
+import { showApiAlert, showGasAlert } from "../../utils/alertManager";
+
 const About = {
+  sentNotifications: new Set(),
+
   async render() {
     return `
     <div class="about">
@@ -215,17 +221,84 @@ const About = {
   },
 
   async afterRender() {
-    // Previous card toggle functionality remains the same
+    // Toggle card
     document.querySelectorAll(".about__card").forEach((card) => {
       card.addEventListener("click", function () {
         const content = this.querySelector(".about__card-content");
         const icon = this.querySelector("p");
 
-        // Hanya toggle card yang diklik (tidak mempengaruhi card lain)
         content.classList.toggle("show");
         icon.textContent = content.classList.contains("show") ? "▲" : "▼";
       });
     });
+
+    // Mulai langganan MQTT untuk notifikasi real-time
+    this.subscribeToMQTT();
+  },
+
+  subscribeToMQTT() {
+    const topics = ["iot/gas", "iot/flame"];
+
+    topics.forEach((topic) => {
+      getMQTTData(topic, async (receivedTopic, message) => {
+        const value = parseFloat(message);
+
+        if (receivedTopic === "iot/gas") {
+          if (value >= 200 && value < 500) {
+            await this.triggerNotif(
+              "Terdeteksi Gas! (Hati-hati)",
+              "Kadar gas melebihi 200 PPM, Segera cek sumber gas!"
+            );
+            showGasAlert("Kadar gas melebihi 200 PPM, Segera cek sumber gas untuk pencegahan dini!");
+        } else if (value >= 500 && value < 2000) {
+            await this.triggerNotif(
+                "Terdeteksi Gas! (Waspada)",
+                "Kadar gas melebihi 500 PPM, Matikan api dan buka ventilasi!"
+            );
+            showGasAlert("Kadar gas melebihi 500 PPM, Segera cek sumber gas, matikan api, dan buka ventilasi!");
+        } else if (value >= 2000) {
+            await this.triggerNotif(
+                "Terdeteksi Gas! (Bahaya)",
+                "Kadar gas melebihi 2000 PPM, Keluarkan tabung gas ke luar ruangan dan matikan listrik!"
+            );
+            showGasAlert("Kadar gas melebihi 2000 PPM, Segera keluarkan gas LPG kamu ke ruangan terbuka, jangan menyalakan api dan matikan listrik!");
+          }
+        }
+
+        if (receivedTopic === "iot/flame" && value === 1) {
+          await this.triggerNotif(
+            "Terdeteksi Api!",
+            "Terdeteksi api, segera periksa sumber gas LPG!"
+          );
+          showApiAlert();
+        }
+      });
+    });
+  },
+
+  async triggerNotif(title, message) {
+    const key = `${title}||${message}`;
+    if (this.sentNotifications.has(key)) return;
+
+    try {
+      const response = await fetch(
+        `${CONFIG.BACKEND_URL}/trigger-notification`,
+        {
+          method: "POST",
+          body: JSON.stringify({ title, message }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (response.ok) {
+        this.sentNotifications.add(key);
+        console.log("✅ Notifikasi dikirim dari About:", key);
+      } else {
+        console.warn("❌ Gagal kirim notifikasi:", response.status);
+      }
+    } catch (error) {
+      console.error("❌ Error triggering notification from About:", error);
+    }
   },
 };
 

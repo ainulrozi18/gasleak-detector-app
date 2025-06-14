@@ -82,7 +82,8 @@ self.addEventListener('push', event => {
     icon: '/icons/icon-192x192.png',
     badge: '/icons/icon-72x72.png',
     vibrate: [200, 100, 200, 100, 200],
-    tag: 'firegas-notification', // Tambahkan tag untuk mengelompokkan notifikasi
+    tag: `${Date.now()}`,
+    // tag: 'firegas-notification', // Tambahkan tag untuk mengelompokkan notifikasi
     data: { 
       url: '/',
       timestamp: new Date().getTime()

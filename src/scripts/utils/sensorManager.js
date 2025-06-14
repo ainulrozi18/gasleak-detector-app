@@ -140,7 +140,7 @@ export class SensorManager {
   handleFlameNotifications(isFlameDetected) {
     if (isFlameDetected) {
       const title = "Terdeteksi Api!";
-      const message = "Terdeteksi Api! Segera cek gas LPG kamu!";
+      const message = "Terdeteksi Api! segera periksa sumber gas LPG!";
       this.triggerNotif(title, message);
       showApiAlert();
     }
